@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>🎉 Happy Birthday Anousha 🎂</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: linear-gradient(135deg, #ffdde1, #ee9ca7);
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+      min-height: 100vh;
+      overflow: hidden;
+      -webkit-user-select: none;
+      user-select: none;
+      touch-action: manipulation;
+      padding: 20px;
+    }
+
+    .curtain {
+      position: fixed;
+      top: 0;
+      width: 50%;
+      height: 100vh;
+      background: #ff4d6d;
+      z-index: 10;
+      transition: transform 1.3s ease-in-out;
+      will-change: transform;
+    }
+
+    .left-curtain {
+      left: 0;
+      border-right: 3px solid white;
+    }
+
+    .right-curtain {
+      right: 0;
+      border-left: 3px solid white;
+    }
+
+    .open.left-curtain {
+      transform: translateX(-100%);
+    }
+
+    .open.right-curtain {
+      transform: translateX(100%);
+    }
+
+    .open-btn {
+      position: fixed;
+      inset: 0;
+      margin: auto;
+      width: fit-content;
+      height: fit-content;
+      padding: 15px 28px;
+      font-size: 18px;
+      font-weight: bold;
+      background: white;
+      border: none;
+      border-radius: 40px;
+      color: #ff4d6d;
+      box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3);
+      z-index: 11;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .open-btn:active {
+      transform: scale(0.95);
+    }
+
+    .container {
+      width: 100%;
+      max-width: 600px;
+      text-align: center;
+    }
+
+    .card {
+      opacity: 0;
+      transform: scale(0.8);
+      transition: all 1s ease-in-out;
+      background: white;
+      padding: 25px;
+      margin: 20px auto;
+      border-radius: 25px;
+      box-shadow: 0 8px 30px rgba(0, 0, 0, 0.3);
+    }
+
+    .card.show {
+      opacity: 1;
+      transform: scale(1);
+    }
+
+    .section {
+      margin: 18px 0;
+      padding: 15px;
+      background: #fff3f3;
+      border-radius: 15px;
+      box-shadow: 0 4px 12px rgba(255, 77, 109, 0.25);
+      opacity: 0;
+      transform: translateY(30px);
+      transition: all 1s ease;
+    }
+
+    .section.show {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    h1 {
+      font-size: clamp(22px, 6vw, 30px);
+      color: #ff004c;
+      margin-bottom: 15px;
+    }
+
+    h2 {
+      font-size: clamp(18px, 5vw, 22px);
+      margin-bottom: 10px;
+      color: #333;
+    }
+
+    p {
+      font-size: clamp(15px, 4.5vw, 17px);
+      color: #444;
+      line-height: 1.6;
+    }
+
+    .confetti {
+      position: fixed;
+      width: 10px;
+      height: 10px;
+      top: -10px;
+      animation: fall 4s linear forwards;
+      z-index: 5;
+    }
+
+    @keyframes fall {
+      to {
+        transform: translateY(100vh) rotate(720deg);
+        opacity: 0;
+      }
+    }
+
+    .overlay-close {
+      position: fixed;
+      inset: 0;
+      background: transparent;
+      z-index: 9;
+      display: none;
+    }
+
+    .overlay-close.show {
+      display: block;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="curtain left-curtain"></div>
+  <div class="curtain right-curtain"></div>
+  <div class="overlay-close" id="overlayClose"></div>
+  <button class="open-btn" id="openBtn">🎀 Open Surprise 🎀</button>
+
+  <div class="container" id="main-container"></div>
+
+  <script>
+    const data = {
+      title: "🎉 Happy 19th Birthday Anousha 🎂",
+      fromTo: {
+        from: "❤️ Mahanoor (Your Loving Cousin)",
+        to: "🌸 To My Dearest Anousha"
+      },
+      sections: [
+        "Dear Anousha, today marks a new chapter full of love, success, and magical surprises. May your journey ahead be brighter than ever! 🌟",
+        "🎂 You are turning 19 today – a beautiful age full of dreams, opportunities, and adventures waiting to be embraced.",
+        "💌 From childhood giggles to endless memories, you have been the heartbeat of our family. Thank you for being YOU!",
+        "🌹 May your laughter be endless, your dreams be fearless, and your happiness be limitless.",
+        "🎁 Here’s to surprises, gifts, cakes, and celebrations that will fill your heart with joy.",
+        "🌙 Remember, you are loved beyond words and cherished beyond measure.",
+        "✨ May the stars always shine upon your path, guiding you to success and love.",
+        "🎶 Dance through life with happiness, sing your heart out, and never stop smiling.",
+        "📖 This year is another page in your story – make it bold, beautiful, and unforgettable.",
+        "🌸 Always remember: You are rare, precious, and one of a kind. Shine bright!",
+        "🌈 Your smile lights up every room you walk into – keep shining like the star you are.",
+        "💖 Life has beautiful chapters waiting for you, filled with love, laughter, and success.",
+        "🎆 May this birthday bring you endless fireworks of joy and countless blessings.",
+        "🌊 Just like waves that touch the shore endlessly, may happiness always touch your life.",
+        "🎀 Wrapped in love, tied with care, this wish is just for you – Happy Birthday!",
+        "🍫 May your life be as sweet as chocolate and as colorful as a rainbow.",
+        "🌍 Wherever you go, remember the world is better with you in it.",
+        "💫 Dreams aren’t just made to be dreamt – go out there and live them fully!",
+        "🌹 On your special day, may roses bloom brighter and stars shine closer just for you.",
+        "🎉 Cheers to 19 years of being amazing, and countless more to come!",
+        "🦋 May every moment transform into something beautiful, just like a butterfly’s flight.",
+        "🌟 The universe itself celebrates your existence today.",
+        "🎶 Let music guide your heart and joy be your constant song.",
+        "💎 You are a diamond – rare, priceless, and forever shining.",
+        "🕊️ May peace follow you always, and may love surround you endlessly."
+      ]
+    };
+
+    const btn = document.getElementById("openBtn");
+    const container = document.getElementById("main-container");
+    const overlay = document.getElementById("overlayClose");
+
+    function openCard() {
+      document.querySelector('.left-curtain').classList.add('open');
+      document.querySelector('.right-curtain').classList.add('open');
+      btn.style.display = "none";
+
+      setTimeout(() => {
+        document.body.style.overflowY = "auto";
+        buildCard();
+        requestAnimationFrame(() => {
+          document.querySelectorAll('.card').forEach(c => c.classList.add('show'));
+          overlay.classList.add('show');
+        });
+        launchConfetti();
+      }, 1300);
+    }
+
+    function closeCard() {
+      document.querySelectorAll('.card').forEach(c => c.classList.remove('show'));
+      overlay.classList.remove('show');
+      document.querySelector('.left-curtain').classList.remove('open');
+      document.querySelector('.right-curtain').classList.remove('open');
+      setTimeout(() => {
+        btn.style.display = "block";
+        container.innerHTML = "";
+        document.body.style.overflow = "hidden";
+      }, 1000);
+    }
+
+    function buildCard() {
+      container.innerHTML = "";
+      const title = document.createElement('div');
+      title.className = "card show";
+      title.innerHTML = `<h1>${data.title}</h1><h2>${data.fromTo.from}</h2><h2>${data.fromTo.to}</h2>`;
+      container.appendChild(title);
+
+      data.sections.forEach((text, i) => {
+        const sec = document.createElement('div');
+        sec.className = "card section";
+        sec.innerHTML = `<p>${text}</p>`;
+        container.appendChild(sec);
+        setTimeout(() => sec.classList.add('show'), 300 * (i + 1));
+      });
+    }
+
+    function launchConfetti() {
+      for (let i = 0; i < 150; i++) {
+        const confetti = document.createElement('div');
+        confetti.classList.add('confetti');
+        confetti.style.left = Math.random() * 100 + "vw";
+        confetti.style.backgroundColor = `hsl(${Math.random() * 360},80%,60%)`;
+        confetti.style.animationDelay = Math.random() * 2 + "s";
+        document.body.appendChild(confetti);
+        setTimeout(() => confetti.remove(), 4000);
+      }
+    }
+
+    btn.addEventListener("click", openCard);
+    btn.addEventListener("touchstart", (e) => { e.preventDefault(); openCard(); }, { passive: false });
+
+    overlay.addEventListener("click", closeCard);
+  </script>
+</body>
+
+</html>
